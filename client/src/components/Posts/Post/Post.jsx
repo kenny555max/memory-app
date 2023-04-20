@@ -35,24 +35,24 @@ const Post = ({ post, setCurrentId }) => {
 
     return (
         <Paper elevation={4} sx={{ borderRadius: '20px', height: '100%' }}>
-            <ButtonBase sx={{ textAlign: 'justify' }} component={Link} to={`/posts/${_id}/postDetails`}>
-                <Card sx={{ borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe">
-                                {name.substr(0, 1)}
-                            </Avatar>
-                        }
-                        action={
-                            user?.result?._id === creator && (
-                                <IconButton onClick={() => setCurrentId(_id)} aria-label="settings">
-                                    <MoreVertIcon />
-                                </IconButton>
-                            )
-                        }
-                        title={name}
-                        subheader={moment(createdAt).fromNow()}
-                    />
+            <Card sx={{ borderRadius: '20px', height: '100%' }}>
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe">
+                            {name.substr(0, 1)}
+                        </Avatar>
+                    }
+                    action={
+                        user?.result?._id === creator && (
+                            <IconButton onClick={() => setCurrentId(_id)} aria-label="settings">
+                                <MoreVertIcon />
+                            </IconButton>
+                        )
+                    }
+                    title={name}
+                    subheader={moment(createdAt).fromNow()}
+                />
+                <ButtonBase sx={{ textAlign: 'justify', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} component={Link} to={`/posts/${_id}/postDetails`}>
                     <CardMedia
                         sx={{ height: '250px' }}
                         component="img"
@@ -69,19 +69,19 @@ const Post = ({ post, setCurrentId }) => {
                             <Typography variant="body2" color="text.secondary">{message.length > 120 ? `${message.substr(0, 120)}...` : message}</Typography>
                         </div>
                     </CardContent>
-                    <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button disabled={!user?.result} aria-label="add to favorites" onClick={() => likedPost(_id)}>
-                            <Like />
+                </ButtonBase>
+                <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button disabled={!user?.result} aria-label="add to favorites" onClick={() => likedPost(_id)}>
+                        <Like />
+                    </Button>
+                    {user?.result?._id === creator && (
+                        <Button onClick={() => dispatch(deletePost(_id), navigate)} aria-label="add to favorites">
+                            <DeleteIcon />
+                            Delete
                         </Button>
-                        {user?.result?._id === creator && (
-                            <Button onClick={() => dispatch(deletePost(_id), navigate)} aria-label="add to favorites">
-                                <DeleteIcon />
-                                Delete
-                            </Button>
-                        )}
-                    </CardActions>
-                </Card>
-            </ButtonBase>
+                    )}
+                </CardActions>
+            </Card>
         </Paper>
     )
 }

@@ -16,10 +16,10 @@ const Search = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        if (search.trim() || tags.length !== 0) navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',') || 'none'}`);
-
-        if (searchQuery || tagQuery) dispatch(fetchPostsBySearch({ search: searchQuery, tags: tagQuery.split(',') }));
+        
+        if (search.trim() || tags.length !== 0) dispatch(fetchPostsBySearch({ search, tags }));
+        
+        navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',') || 'none'}`);
 
         setTags([]);
         setSearch('');
@@ -56,7 +56,7 @@ const Search = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button type='submit' variant='contained' color='primary' sixe='large' fullWidth>submit</Button>
+                        <Button type='submit' variant='contained' color='primary' size='large' fullWidth>submit</Button>
                     </Grid>
                 </Grid>
             </form>

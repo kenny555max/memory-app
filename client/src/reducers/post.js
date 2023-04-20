@@ -1,17 +1,22 @@
-import { CREATE_POST, EDIT_POST, FETCH_POSTS, DELETE_POST, FETCH_POST, GET_POST } from "../actions/type";
+import { CREATE_POST, EDIT_POST, FETCH_POSTS, DELETE_POST, FETCH_POST, GET_POST, isLOADING_END, isLOADING_START } from "../actions/type";
 
 
 const initialState = {
   posts: [],
   post: {},
   totalNumberOfPages: '',
-  currentPage: ''
+  currentPage: '',
+  isLoading: true
 }
 
 export function reducer (state = initialState, action) {
   switch (action.type) {
     case FETCH_POST:
       return { ...state, posts: action.payload.data, totalNumberOfPages: action.payload.totalNumberOfPages, currentPage: action.payload.currentPage };
+    case isLOADING_END:
+      return { ...state, isLoading: false };
+    case isLOADING_START:
+      return { ...state, isLoading: true };
     case FETCH_POSTS:
       return { ...state, posts: action.payload };
     case GET_POST:

@@ -43,10 +43,11 @@ export const getPostDetails = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
     const { query, tags } = req.query;
+    
     try {
         const search = new RegExp(query, 'i');
 
-        const posts = await postModel.find({ $or: [ { title: search }, { tags: { $in: [...tags] } } ] });
+        const posts = await postModel.find({ $or: [ { title: search }, { tags: { $in: [...tags.split(',')] } } ] });
 
         res.status(200).json(posts);
     } catch (error) { 

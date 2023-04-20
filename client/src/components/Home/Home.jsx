@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         if (page) dispatch(fetchPost(page));
-    },[page, dispatch, search]);
+    },[page, dispatch]);
 
     return (
         <Container maxWidth='false'>

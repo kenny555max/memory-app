@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, MenuItem, Menu, IconButton, Avatar } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import image from '../../images/photo-1423784346385-c1d4dac9893a.jpg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/auth';
 import decode from 'jwt-decode';
 
 const Navbar = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -26,6 +27,10 @@ const Navbar = () => {
         setAnchorEl(null);
         dispatch(logout(navigate));
     };
+
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('profile')));        
+    },[location]);
 
     useEffect(() => {
         let token = user?.token;
@@ -53,7 +58,7 @@ const Navbar = () => {
                 <div style={{ display: 'flex' }}>
                     {user && (
                         <div>
-                            <Typography variant='h6' marginTop='10px' sx={{ color: '#000' }}>{user.result.email}</Typography>
+                            <Typography variant='h6' marginTop='10px' sx={{ color: '#000' }}>{user?.result?.email}</Typography>
                         </div>
                     )}
                     <IconButton

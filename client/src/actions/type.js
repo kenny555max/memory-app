@@ -7,3 +7,5 @@ export const DELETE_POST = 'DELETE_POST';
 export const SIGNIN = 'SIGNIN';
 export const SIGNUP = 'SIGNUP';
 export const LOGOUT = 'LOGOUT';
+export const isLOADING_START = 'isLOADING_START';
+export const isLOADING_END = 'isLOADING_END';

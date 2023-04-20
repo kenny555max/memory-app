@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const Posts = ({ setCurrentId, currentId }) => {
   const dispatch = useDispatch();
-  const posts = useSelector(state => state.posts.posts);
+  const { posts, isLoading } = useSelector(state => state.posts);
   const location = useLocation();
   
   useEffect(() => {
@@ -16,8 +16,10 @@ const Posts = ({ setCurrentId, currentId }) => {
     dispatch(fetchPosts());
   },[dispatch, currentId, posts, location]);
 
+  if (isLoading || !posts) return <CircularProgress />;
+
   return (
-    !posts.length ? <CircularProgress /> : posts.map((post) => {
+    posts.map((post) => {
       return (
         <Grid item md={6} lg={4} key={post._id} xs={12} xl={3}>
           <Post post={post} setCurrentId={setCurrentId} currentId={currentId} />
